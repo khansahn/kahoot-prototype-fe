@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Material Design Bootstrap</title>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
+  <!-- Bootstrap core CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <!-- Material Design Bootstrap -->
+  <link href="css/mdb.min.css" rel="stylesheet">
+  <!-- Your custom styles (optional) -->
+  <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+  
+  <header>
+    <!-- Navbar -->
+    <nav class="navbar navbar-dark bg-dark text-light">
+      <div clas="left-top-bar">
+        <a class="text-light" href="/exploreAfterLogin.html">  X  Close</a>
+      </div>
+      <div clas="left-top-bar">
+        <h2>Create Quiz</h2>
+      </div>
+      <!-- <a class="navbar-brand" href="#">Navbar</a> -->      
+      <div clas="right-top-bar">
+        <button type="button" class="btn btn-dark-green btn-rounded waves-effect" onclick="createQuiz()">Ok, Go!</button>
+      </div>
+    </nav>
+    <!--/.Navbar-->
+    
+  </header>
+  
+  <main>
+    
+    <!--Main container-->
+    <div class="container my-3">
+      <!--Section: Contact-->
+      <section id="quiz-information">
+        <div class="row justify-content-center">
+          <div class="col-lg-6 col-md-12">          
+            <!-- Default form group -->
+            <form>
+              <!-- Default input -->
+              <div class="form-group">
+                <label for="formGroupExampleInput">Quiz Title</label>
+                <input type="text" class="form-control form-control-lg" id="input-quiz-title" placeholder="Quiz title">
+              </div>
+              <!-- Default input -->
+              <div class="form-group">
+                <label for="formGroupExampleInput">Quiz Category</label>
+                <input type="text" class="form-control" id="input-quiz-category" placeholder="Quiz category">
+              </div>
+              <!-- Default input -->
+              <div class="form-group">
+                <label for="formGroupExampleInput2">Created By</label>
+                <input type="text" class="form-control form-control-sm" id="dis-creator" placeholder="Created by" disabled>
+              </div>
+            </form>
+            <!-- Default form group -->
+          </div>
+          
+          <div class="col-lg-5 col-md-12">
+            <form class="md-form">
+              <div class="file-field">
+                <div class="z-depth-1-half mb-4">
+                  <img src="https://mdbootstrap.com/img/Photos/Others/placeholder.jpg" class="img-fluid" alt="example placeholder">
+                </div>
+                <div class="d-flex justify-content-center">
+                  <div class="btn btn-mdb-color btn-rounded float-left">
+                    <span>Choose file</span>
+                    <input type="file">
+                  </div>
+                </div>
+              </div>
+            </form>          
+          </div>
+        </div>
+        
+      </section>   
+      
+    </div>
+    <!--Main container-->
+    
+  </main>
+  
+  <!-- Footer -->
+  <footer class="page-footer font-small bg-dark pt-4 mt-4">
+    
+    <!-- Footer Links -->
+    <div class="container-fluid text-center text-md-left">
+      
+      <!-- Grid row -->
+      <div class="row">
+        
+        <!-- Grid column -->
+        <div class="col-md-6 mt-md-0 mt-3">
+          
+          <!-- Content -->
+          <h5 class="text-uppercase">Follow Us!</h5>
+          <!-- <p>Here you can use rows and columns here to organize your footer content.</p> -->
+          <div class="row mx-2">
+            <a href="http://twitter.com/">
+              <img width="30" height="30"  src="/img/ink/twitter.png" alt="twitter" style="margin-left:5px; margin-top: 5px">
+            </a>
+            <a href="http://tumblr.com/">
+              <img width="30" height="30"  src="/img/ink/tumblr.png" alt="tumblr" style="margin-left:5px; margin-top: 5px">
+            </a> 
+          </div>
+          
+        </div>
+        <!-- Grid column -->
+        
+        <hr class="clearfix w-100 d-md-none pb-3">
+        
+        <!-- Grid column -->
+        <div class="col-md-3 mb-md-0 mb-3">
+          
+          <!-- Links -->
+          <h5 class="text-uppercase">Links</h5>
+          
+          <ul class="list-unstyled">
+            <li>
+              <a href="#!">Link 1</a>
+            </li>
+            <li>
+              <a href="#!">Link 2</a>
+            </li>
+            <li>
+              <a href="#!">Link 3</a>
+            </li>
+            <li>
+              <a href="#!">Link 4</a>
+            </li>
+          </ul>
+          
+        </div>
+        <!-- Grid column -->
+        
+        <!-- Grid column -->
+        <div class="col-md-3 mb-md-0 mb-3">
+          
+          <!-- Links -->
+          <h5 class="text-uppercase">Links</h5>
+          
+          <ul class="list-unstyled">
+            <li>
+              <a href="#!">Link 1</a>
+            </li>
+            <li>
+              <a href="#!">Link 2</a>
+            </li>
+            <li>
+              <a href="#!">Link 3</a>
+            </li>
+            <li>
+              <a href="#!">Link 4</a>
+            </li>
+          </ul>
+          
+        </div>
+        <!-- Grid column -->
+        
+      </div>
+      <!-- Grid row -->
+      
+    </div>
+    <!-- Footer Links -->
+    
+    <!-- Copyright -->
+    <div class="footer-copyright text-center py-3">© 2019 Copyright:
+      <a href="#top"> @1.46557123</a>
+    </div>
+    <!-- Copyright -->
+    
+  </footer>
+  <!-- Footer -->
+  
+  
+  <!-- /Start your project here-->
+  
+  <!-- SCRIPTS -->
+  <!-- JQuery -->
+  <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+  <!-- Bootstrap tooltips -->
+  <script type="text/javascript" src="js/popper.min.js"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" src="js/mdb.js"></script>
+  
+  <script src="/js/createQuiz.js"></script>
+  
+</body>
+
+</html>
