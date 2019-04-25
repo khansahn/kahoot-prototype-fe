@@ -1,65 +1,6 @@
 beAddress = 'http://localhost:9999'
 
-
-if (typeof("questionId")  === 'undefined'){
-    console.log('no cookie');
-} else {
-    console.log(' cookie exist');    
-    $.ajax({
-        url: beAddress +'/quiz/'+getCookie("quizId")+'/question/'+ getCookie("questionId"),
-        method : 'GET',
-        headers: {
-            'Authorization':'Bearer ' + getCookie("token"),
-            // 'X-CSRF-TOKEN':'xxxxxxxxxxxxxxxxxxxx',
-            // 'Content-Type':'application/json'
-        },
-        // type : 'GET',
-        // data: [],{}, string, int, JSON.stringify([{}]) --> misalnya API butuh data dr user,
-        success: function(result){
-            $("input#input-question").val(result.data.question)
-
-            let answers = result.data.answer
-            let options = result.data.options
-            if (options[0].option_id != undefined){
-                $("input#input-option-a").val(options[0].option)
-                document.getElementById("customSwitches-option-a").disabled = false;
-                if (options[0].option_id in answers){
-                    $("input#customSwitches-option-a").val(this.checked = "TRUE")
-                }
-            }   
-            if (options[1].option_id != undefined){
-                $("input#input-option-b").val(options[1].option)
-                document.getElementById("customSwitches-option-b").disabled = false;
-                if (options[1].option_id in answers){
-                    $("input#customSwitches-option-b").val(this.checked = "TRUE")
-                }
-            }  
-            if (options[2].option_id != undefined){
-                $("input#input-option-c").val(options[2].option)
-                document.getElementById("customSwitches-option-c").disabled = false;
-                if (options[2].option_id in answers){
-                    $("input#customSwitches-option-c").prop('checked', true)
-                    console.log($("input#customSwitches-option-c").val())
-                }
-            }  
-            if (options[3].option_id != undefined){
-                $("input#input-option-d").val(options[3].option)
-                document.getElementById("customSwitches-option-d").disabled = false;
-                if (options[3].option_id in answers){
-                    $("input#customSwitches-option-d").val(this.checked = "TRUE")
-                }
-            }       
-            
-            
-        },
-        error : function(){
-            // error handling
-        },
-        complete: function(){
-            
-        }
-    })
-}
+isUpdate = false
 
 
 var getCookieUsernameLogin = getCookie("usernameLogin")
@@ -73,6 +14,73 @@ document.getElementById("customSwitches-option-a").disabled = true;
 document.getElementById("customSwitches-option-b").disabled = true;
 document.getElementById("customSwitches-option-c").disabled = true;
 document.getElementById("customSwitches-option-d").disabled = true;
+
+
+
+if (typeof("questionId")  === 'undefined' || getCookie("questionId") == undefined){
+    console.log('no cookie');
+} else {
+    console.log(' cookie exist');   
+    isUpdate = true
+    
+    $.ajax({
+        url: beAddress +'/quiz/'+getCookie("quizId")+'/question/'+ getCookie("questionId"),
+        method : 'GET',
+        headers: {
+            'Authorization':'Bearer ' + getCookie("token"),
+            // 'X-CSRF-TOKEN':'xxxxxxxxxxxxxxxxxxxx',
+            // 'Content-Type':'application/json'
+        },
+        // type : 'GET',
+        // data: [],{}, string, int, JSON.stringify([{}]) --> misalnya API butuh data dr user,
+        success: function(result){
+            $("input#input-question").val(result.data.question)
+            
+            let answers = result.data.answer
+            let options = result.data.options
+            let answerKeys = Object.keys(options)
+            if (options.optA != ""){
+                $("input#input-option-a").val(options.optA)
+                document.getElementById("customSwitches-option-a").disabled = false;
+                if (answers.includes(answerKeys[0])){
+                    document.getElementById("customSwitches-option-a").checked = true;
+                }
+            }   
+            if (options.optB != ""){
+                $("input#input-option-b").val(options.optB)
+                document.getElementById("customSwitches-option-b").disabled = false;
+                if (answers.includes(answerKeys[1])){
+                    document.getElementById("customSwitches-option-b").checked = true;
+                }
+            }  
+            if (options.optC != ""){
+                $("input#input-option-c").val(options.optC)
+                document.getElementById("customSwitches-option-c").disabled = false;
+                if (answers.includes(answerKeys[2])){
+                    document.getElementById("customSwitches-option-c").checked = true;
+                }
+            }  
+            if (options.optD != ""){
+                $("input#input-option-d").val(options.optD)
+                document.getElementById("customSwitches-option-d").disabled = false;
+                if (answers.includes(answerKeys[3])){
+                    document.getElementById("customSwitches-option-d").checked = true;
+                }
+            }  
+            
+            
+            
+        },
+        error : function(){
+            // error handling
+        },
+        complete: function(){
+            
+        }
+    })
+}
+
+
 
 function disSwitchA(){
     opsiA = $("input#input-option-a").val()
@@ -112,51 +120,37 @@ function disSwitchD(){
 }
 // CREATE QUESTION
 function createQuestion(){ 
+    if (this.isUpdate == false){
+        this.createQuestionNew()
+    }
+    else {
+        this.updateQuestion()
+    }
+    
+}
+
+// CREATE QUESTION NEW
+function createQuestionNew(){
+    
     quiz_id = getCookie("quizId")
     question = $('input#input-question').val()
-    options = []
-    optionsNumb = []
     answer = []
     
-    opsiA = $("input#input-option-a").val()
-    if (opsiA != "") {
-        options.push(opsiA)
-        optionsNumb.push(0)
-    }
-    opsiB = $("input#input-option-b").val()
-    if (opsiB != "") {
-        options.push(opsiB)
-        optionsNumb.push(1)
-    }
-    opsiC = $("input#input-option-c").val()
-    if (opsiC != "") {
-        options.push(opsiC)
-        optionsNumb.push(2)
-    }
-    opsiD = $("input#input-option-d").val()
-    if (opsiD != "") {
-        options.push(opsiD)
-        optionsNumb.push(3)
-    }
     ansA = $("input#customSwitches-option-a").val()
     if (ansA == "TRUE") {
-        p = optionsNumb.indexOf(0)
-        answer.push(p)
+        answer.push("optA")
     }
     ansB = $("input#customSwitches-option-b").val()
     if (ansB == "TRUE") {
-        p = optionsNumb.indexOf(1)
-        answer.push(p)
+        answer.push("optB")
     }
     ansC = $("input#customSwitches-option-c").val()
     if (ansC == "TRUE") {
-        p = optionsNumb.indexOf(2)
-        answer.push(p)
+        answer.push("optC")
     }
     ansD = $("input#customSwitches-option-d").val()
     if (ansD == "TRUE") {
-        p = optionsNumb.indexOf(3)
-        answer.push(p)
+        answer.push("optD")
     }
     
     $.ajax({
@@ -172,7 +166,12 @@ function createQuestion(){
             "quiz-id": quiz_id,
             "question" : question,
             "answer" : answer,
-            "options" : options                
+            "options" : {
+                "optA" : $("input#input-option-a").val(),
+                "optB" : $("input#input-option-b").val(),
+                "optC" : $("input#input-option-c").val(),
+                "optD" : $("input#input-option-d").val()
+            }                
         }),
         success: function(response){
             console.log(response)
@@ -190,9 +189,77 @@ function createQuestion(){
         complete: function(){
             
         }
-    })        
+    })   
 }
 
+
+// UPDATE QUESTION
+function updateQuestion(){
+    
+    quiz_id = getCookie("quizId")
+    question_id = getCookie("questionId")
+    status_enabled = true
+    
+    question = $('input#input-question').val()
+    answer = []
+    
+    ansA = $("input#customSwitches-option-a").val()
+    if (ansA == "TRUE") {
+        answer.push("optA")
+    }
+    ansB = $("input#customSwitches-option-b").val()
+    if (ansB == "TRUE") {
+        answer.push("optB")
+    }
+    ansC = $("input#customSwitches-option-c").val()
+    if (ansC == "TRUE") {
+        answer.push("optC")
+    }
+    ansD = $("input#customSwitches-option-d").val()
+    if (ansD == "TRUE") {
+        answer.push("optD")
+    }
+    
+    $.ajax({
+        url: beAddress+ '/quiz/'+quiz_id+'/question/'+question_id,
+        method: 'PUT',
+        contentType: 'application/json',
+        headers: {
+            'Authorization':'Bearer ' + getCookie("token"),
+            // 'X-CSRF-TOKEN':'xxxxxxxxxxxxxxxxxxxx',
+            // 'Content-Type':'application/json'
+        },
+        data: JSON.stringify({            
+            "quiz_id": quiz_id,
+            "question_id" : question_id,
+            "question" : question,
+            "answer" : answer,
+            "options" : {
+                "optA" : $("input#input-option-a").val(),
+                "optB" : $("input#input-option-b").val(),
+                "optC" : $("input#input-option-c").val(),
+                "optD" : $("input#input-option-d").val()
+            },
+            "status_enabled": true         
+        }),
+        success: function(response){
+            console.log(response)
+            // alert(response.data.token)
+            // respon = JSON.parse(response)
+            // alert(respon.data.token)
+            // createCookie("quizId", response.data.quiz_id, 1) 
+            eraseCookie("questionId")           
+            window.location.href='createQuestion_pre_questionList.html'
+        },
+        error: function(error){
+            alert(error.responseJSON.message)
+            console.log(error)
+        },
+        complete: function(){
+            
+        }
+    })   
+}
 
 // EXIT CREATING QUESTION
 function exitCreatingQuestion(){ 
